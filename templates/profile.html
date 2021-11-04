@@ -1,0 +1,108 @@
+<!-- Header starts -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300&family=Red+Hat+Display&family=Signika+Negative&display=swap" rel="stylesheet">
+    <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> -->
+    <script src="https://kit.fontawesome.com/15e4344681.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./static/main.css">
+    <title>Pollz | Home</title>
+</head>
+<html>
+<body>
+    <nav id="postoblog-logo" class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" id="toogle-button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#myNavbar">
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
+                <a id="logo" class="navbar-brand" href="/">Pollz</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul id="link" class="nav navbar-nav navbar-right">
+                    <li class="nav-item link1"><a href="/profile">
+                            My Profile
+                        </a>
+                    </li>
+                    <li class="nav-item link1"><a href="/logout">
+                            Logout
+                        </a>
+                    </li>
+                    </ul>
+                </div>
+        </div>
+    </nav>
+    <div>
+        <h1><center>Welcome {{poll_data.username}}</center></h1>
+        <hr>
+        <h3 style="margin-left: 15px;"><b>Your Active Polls : </b></h3>
+        <hr>
+        <ul class="list-group" style="margin-left: 15px;">
+            <!-- <ul class="list-group" style="margin-left:30px ;"> -->
+                {% for data in poll_data %}
+                    <h3>{{data.topic}}</h3>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{data.choice_one}}
+                        <span class="badge badge-primary badge-pill">{{data.choice_one_vote}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{data.choice_two}}
+                        <span class="badge badge-primary badge-pill">{{data.choice_two_vote}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{data.choice_three}}
+                        <span class="badge badge-primary badge-pill">{{data.choice_three_vote}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{data.choice_four}}
+                        <span class="badge badge-primary badge-pill">{{data.choice_four_vote}}</span>
+                    </li>
+                    <br>
+                    <a href='/endpoll/{{data.id}}' class="btn btn-danger">End Poll</a>
+                    <hr>
+                {% endfor %}
+            <!-- </ul> -->
+        </ul>
+        <hr>
+        <h3 style="margin-left: 15px;"><b>Your Ended Poll : </b></h3>
+        <hr>
+        <ul class="list-group" style="margin-left: 15px;">
+            <!-- <ul class="list-group" style="margin-left:30px ;"> -->
+                {% for data in npoll_data %}
+                    <h3>{{data.topic}}</h3>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{data.choice_one}}
+                        <span class="badge badge-primary badge-pill">{{data.choice_one_vote}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{data.choice_two}}
+                        <span class="badge badge-primary badge-pill">{{data.choice_two_vote}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{data.choice_three}}
+                        <span class="badge badge-primary badge-pill">{{data.choice_three_vote}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{data.choice_four}}
+                        <span class="badge badge-primary badge-pill">{{data.choice_four_vote}}</span>
+                    </li>
+                    <br>
+                    <hr>
+                {% endfor %}
+            <!-- </ul> -->
+        </ul>
+ 
+    </div>
+
+</body>
+</html>
