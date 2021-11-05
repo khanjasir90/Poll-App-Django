@@ -6,10 +6,11 @@ import re
 from datetime import date
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib.sessions.models import Session
 # Create your views here.
 
 def index(request):
-    if request.session['username'] == None:
+    if not request.session.get('username'):
         return redirect('/login')
     data = Poll.objects.filter(poll_status=True).order_by('-poll_date')
     ndata = Poll.objects.filter(poll_status=False).order_by('-poll_date')
@@ -95,7 +96,7 @@ def register(request):
 
 def addPoll(request):
     if request.method == 'POST':
-        if request.session['username'] == None:
+        if not request.session.get('username'):
             return redirect('/login')
         topic=request.POST.get('topic')
         choice_one=request.POST.get('choice1')
@@ -123,7 +124,7 @@ def addPoll(request):
 
 def vote(request,id):
     if request.method == 'POST':
-        if request.session['username'] == None:
+        if not request.session.get('username'):
             return redirect('/login')
         voted_option = request.POST.get('choice')
         print(voted_option)
@@ -170,7 +171,7 @@ def vote(request,id):
                 break
         return redirect('/')
     else:
-        if request.session['username'] == None:
+        if not request.session.get('username'):
             return redirect('/login')
         data = Poll.objects.get(id=id)
         context={
@@ -179,7 +180,7 @@ def vote(request,id):
         return render(request,'vote.html',context)
 
 def profile(request):
-    if request.session['username'] == None:
+    if not request.session.get('username'):
         return redirect('login')
     active_data = Poll.objects.filter(username=request.session['username']).filter(poll_status=True).order_by('-poll_date')
     non_active_data = Poll.objects.filter(username=request.session['username']).filter(poll_status=False).order_by('-poll_date')
@@ -190,7 +191,7 @@ def profile(request):
     return render(request,'profile.html',context)
 
 def endpoll(request,id):
-    if request.session['username'] == None:
+    if not request.session.get('username'):
         return redirect('/login')
     print(id)
     register_data = Register.objects.filter(username=request.session['username'])
@@ -206,15 +207,13 @@ def endpoll(request,id):
     email_from = settings.EMAIL_HOST_USER
     recipient =[ email,]
     send_mail(subject,message,email_from,recipient)
-
     return redirect('/profile')
 
 def logout(request):
-    if request.session['username'] == None:
+    if not request.session.get('username'):
         return redirect('/login')
-    request.session['username'] = None
+    Session.objects.all().delete()
     return redirect('/login')
-
 
 # message='''Hey {mail_data.username} thankyou for creating a Poll with Pollz! \n
 #             Below are the Details of Poll \n
@@ -229,3 +228,6 @@ def logout(request):
 #             Mohd Jasir Khan
 #             Founder of Pollz
 #             '''
+
+
+

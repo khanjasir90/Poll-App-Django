@@ -13,8 +13,12 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300&family=Red+Hat+Display&family=Signika+Negative&display=swap" rel="stylesheet">
     <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/15e4344681.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <link rel="stylesheet" href="./static/main.css">
+
     <title>Pollz | Home</title>
 </head>
 <html>
@@ -50,7 +54,7 @@
         <ul class="list-group" style="margin-left: 15px;">
             <!-- <ul class="list-group" style="margin-left:30px ;"> -->
                 {% for data in poll_data %}
-                    <h3>{{data.topic}}</h3>
+                    <h3 id="topic">{{data.topic}}</h3>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         {{data.choice_one}}
                         <span class="badge badge-primary badge-pill">{{data.choice_one_vote}}</span>
@@ -76,33 +80,79 @@
         <hr>
         <h3 style="margin-left: 15px;"><b>Your Ended Poll : </b></h3>
         <hr>
-        <ul class="list-group" style="margin-left: 15px;">
-            <!-- <ul class="list-group" style="margin-left:30px ;"> -->
-                {% for data in npoll_data %}
-                    <h3>{{data.topic}}</h3>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{data.choice_one}}
-                        <span class="badge badge-primary badge-pill">{{data.choice_one_vote}}</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{data.choice_two}}
-                        <span class="badge badge-primary badge-pill">{{data.choice_two_vote}}</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{data.choice_three}}
-                        <span class="badge badge-primary badge-pill">{{data.choice_three_vote}}</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{data.choice_four}}
-                        <span class="badge badge-primary badge-pill">{{data.choice_four_vote}}</span>
-                    </li>
-                    <br>
-                    <hr>
-                {% endfor %}
-            <!-- </ul> -->
-        </ul>
- 
-    </div>
+        
+                <ul class="list-group" style="margin-left: 15px;">
+                    <!-- <ul class="list-group" style="margin-left:30px ;"> -->
+                        {% for data in npoll_data %}
+                            <h3>{{data.topic}}</h3>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{data.choice_one}}
+                                <span class="badge badge-primary badge-pill">{{data.choice_one_vote}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{data.choice_two}}
+                                <span class="badge badge-primary badge-pill">{{data.choice_two_vote}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{data.choice_three}}
+                                <span class="badge badge-primary badge-pill">{{data.choice_three_vote}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{data.choice_four}}
+                                <span class="badge badge-primary badge-pill">{{data.choice_four_vote}}</span>
+                            </li>
+                            <br>
+                            <button class='btn btn-primary' onclick="test('{{data.id}}','{{data.topic}}','{{data.choice_one}}','{{data.choice_two}}','{{data.choice_three}}','{{data.choice_four}}','{{data.choice_one_vote}}','{{data.choice_two_vote}}','{{data.choice_three_vote}}','{{data.choice_four_vote}}')">Analyze</button>
+                            <hr>
 
+                                <div style="height:300px;display: inline-block;">
+                                    <canvas id="{{data.id}}" style="height:300px;"></canvas>
+                                </div>
+                        {% endfor %}
+                    <!-- </ul> -->
+                </ul>
+    </div>
+    <!-- '{{data.topic}}','{{data.choice_one}}','{{data.choice_two}}','{{data.choice_three}}','{{data.choice_four}}','{{data.choice_one_vote}}','{{data.choice_two_vote}}','{{data.choice_three_vote}}','{{data.choice_four_vote}}')}" -->
+    <script>
+       function test(id,topic,one,two,three,four,one_vote,two_vote,three_vote,four_vote) {
+        //    alert(topic)
+        //    alert(one)
+        //    alert(two)
+        //    alert(three)
+        //    alert(four)
+        //    alert(one_vote)
+        //    alert(two_vote)
+        //    alert(three_vote)
+        //    alert(four_vote)
+            var labels = [
+                one,two,three,four
+            ]
+            // alert(labels)
+            const data = {
+            labels: labels,
+            datasets: [{
+            label: topic,
+            backgroundColor: ['rgb(0,51,102)','rgb(0,115,207)','rgb(42,82,190)','rgb(100,149,237)'],
+            borderColor: 'rgb(255, 99, 132)',
+            data: [one_vote,two_vote,three_vote,four_vote],
+            }]
+            };
+            // alert(data)
+            const config = {
+                type:'bar',
+                data:data,
+                options:{
+                    aspectRatio:false,
+
+                }     
+            }
+            // alert(config)
+            const myChart = new Chart(
+            document.getElementById(id),
+            config
+            );
+            
+        }
+    </script>
 </body>
 </html>
