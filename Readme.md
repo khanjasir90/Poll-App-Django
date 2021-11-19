@@ -30,7 +30,8 @@ Django poll app is a full featured polling app. You have to register in this app
 <h2>Run Django-Poll-App using Docker</h2>
 
 <code>docker build . -t djangopollapp</code><br>
-<code>docker run -it --rm djangopollapp</code>
+<code>docker run -p 8001:8000 -it --rm djangopollapp</code><br>
+<p>Then go to http://127.0.0.1:8000 in your browser</p>
 
 <h2>Project snapshot</h2>
 
