@@ -1,6 +1,6 @@
 # Django-Poll-App
 
-Django poll app is a full featured polling app. You have to register in this app to show the polls and to vote. If you already voted you can not vote again. Only the owner of a poll can add poll , end poll. If a poll is ended it can not be voted. Once the owner has ended a poll a mail is send to the users regarding the result of the poll and also Analyze feature is also available which provides the result in a visual manner.
+Django poll app is a full featured polling app. You have to register in this app to show the polls and to vote. If you already voted you can not vote again. Only the owner of a poll can add poll , end poll. If a poll is ended it can not be voted. Once the owner has ended a poll a mail is send to the users regarding the result of the poll and also Analyze feature is also available which provides the result in a visual manner.Also a user can share a poll across devices using QR-Code.
 
 <h1>Getting Started</h1>
 <p>These instructions will get you a copy of the project up and running on your local machine for development .</p>
